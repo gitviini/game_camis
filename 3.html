@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>presente</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./sprites/presente.png" type="image/x-icon">
+</head>
+<style>
+    .house{
+        position: absolute;
+        inset: 50px 0 0 calc(100% - 200px);
+        z-index: 3;
+    }
+    .house span{
+        position: relative;
+        white-space: nowrap;
+        margin: 0 17px;
+    }
+
+    .house .name_tag::before{
+        display: block;
+        content: '';
+    }
+    .house img{
+        width: 200px;
+    }
+</style>
+<body>
+    <div class="display">
+        <div class="player shadow">
+            <span class="name_tag">camila</span>
+            <img src='./sprites/walk.gif' alt="" class="sprite">
+        </div>
+        <div class="house">
+            <span class="name_tag">vinicius' house</span>
+            <img src="./sprites/house.gif" alt="">
+        </div>
+    </div>
+</body>
+<script>
+const player = document.querySelector('.player')
+const display = document.querySelector('.display')
+let sprite = document.querySelector('.sprite')
+let house = document.querySelector('.house')
+
+function reduct(n = [0,0]){
+  let res = [(((n[0])/48).toFixed(0)*48)-48*2,(((n[1])/45).toFixed(0)*45)-45*2]
+  return res
+}
+
+class Game{
+  constructor(display=Element){ 
+    this.flip = true
+    this.keys = []
+    this.tick = 120
+    this.velocity = [0,0]
+    this.position = [48,45]
+    //tamanho do player
+    this.player_size = [48,45]
+    //recebendo tamanho específico da div display
+    this.outlines = [0,0]
+    this.size = [display.clientHeight,display.clientWidth]
+
+    this.get_key()
+    
+    this.name_tag = player.children[0]
+
+    window.onkeydown = () =>{
+        this.motion()
+        this.view()
+        this.questions()
+    }
+  }
+  
+  questions(){
+    if(this.position[0] >= 200 && this.position[0] <= 280 && this.position[1] >= r[1]-100){
+      window.location.href = '4.html'
+    }
+  }
+
+  get_key(){
+    document.onkeydown = (e) =>{
+      this.keys.indexOf(e.key) != -1 ? {} : this.keys.push(e.key)
+    }
+    document.onkeyup = (e) =>{
+      let index = this.keys.indexOf(e.key)
+      index != -1 ? this.keys.splice(index,1) : {}
+    }
+  }
+  
+  motion(){    
+    //UP
+    if(this.keys.indexOf('w') != -1 || this.keys.indexOf('ArrowUp') != -1){
+      this.velocity[0] = -this.player_size[0]
+    }
+    //DOWN
+    else if(this.keys.indexOf('s') != -1 || this.keys.indexOf('ArrowDown') != -1){
+      this.velocity[0] = this.player_size[0]
+    }
+    else{this.velocity[0] = 0}
+    //RIGHT
+    if(this.keys.indexOf('d') != -1 || this.keys.indexOf('ArrowRight') != -1){
+      this.velocity[1] = this.player_size[1]
+    }
+    //LEFT
+    else if(this.keys.indexOf('a') != -1 || this.keys.indexOf('ArrowLeft') != -1){
+      this.velocity[1] = -this.player_size[1]
+    }
+    else{this.velocity[1] = 0}
+    this.position[0] += this.velocity[0]
+    this.position[1] += this.velocity[1]
+
+    this.velocity[1] < 0 ? this.flip = true : {}
+    this.velocity[1] > 0 ? this.flip = false : {}
+    
+    if(this.position[0]-this.player_size[0] < 0){
+      this.position[0] = 0
+      this.name_tag.style.top = '32.5px'
+    }else{this.name_tag.style.top = 'initial'}
+    if(this.position[0]+this.player_size[0] > this.size[0]){this.position[0] = this.size[0] - this.player_size[0]}
+    if(this.position[1]-this.player_size[1] < 0){this.position[1] = 0
+    this.name_tag.style.left = '5px'
+    }else{this.name_tag.style.left = 'initial'}
+    if(this.position[1]+this.player_size[1] >= this.size[1]){this.position[1] = this.size[1] - this.player_size[1]
+    this.name_tag.style.right = '5px'
+    }else{this.name_tag.style.right = 'initial'}
+  }
+
+  view(){
+    this.flip == true ? sprite.style.transform = 'rotate3d(0,1,0,180deg)' : sprite.style.transform = 'rotate3d(0,1,0,0deg)'
+    player.style.left = `${this.position[1]}px`
+    player.style.top = `${this.position[0]}px`
+    this.position[0] > 210 ? player.style.zIndex = '4' : player.style.zIndex = '2'
+    this.position[0] >= 100 && this.position[0] <= 380 && this.position[1] >= r[1]-250 ? house.style.filter = 'brightness(1.5)' : house.style.filter = 'brightness(1)'
+    this.size = [display.clientHeight,display.clientWidth]
+  }
+}
+
+const game = new Game()
+
+//game.size = reduct([display.clientHeight,display.clientWidth])
+
+//display.style.width = `${game.size[1]}px`;display.style.height = `${game.size[0]}px`
+
+var r = reduct([display.clientHeight,display.clientWidth])
+</script>
+</html>

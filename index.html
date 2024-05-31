@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>presente</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="shortcut icon" href="./sprites/presente.png" type="image/x-icon">
+</head>
+<body>
+    <button onclick="run()">começar</button>
+    <div class="player shadow">
+        <span class="letter"></span>
+        <img src="./sprites/idle.gif" alt="" class="sprite">
+    </div>
+</body>
+<script>
+    let texts = ['Olá','Meu nome é Camila Gusmão e...','Hoje é meu aniversário de namoro','Sendo assim, vou ver meu namorado']
+    const player = document.querySelector('.player')
+    const button = document.querySelector('button')
+    const letter = document.querySelector('.letter')
+    button.onclick = () =>{
+        button.style.fontSize = '0px'
+        button.style.width = '0px'
+        button.style.padding = '0px'
+
+        player.style.scale = '2'
+        let count = 0
+        let interval = setInterval(()=>{
+            if(count >= 5){
+                window.location.href = '1.html'
+            }
+            if(count == texts.length){
+                letter.innerHTML = ''
+                player.style.scale = '0'
+            }
+            else{
+                letter.innerHTML = texts[count]
+            }
+            count++
+        },4000)
+    }
+</script>
+</html>

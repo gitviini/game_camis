@@ -1,0 +1,78 @@
+@keyframes popup {
+  from{scale: 0;}
+  to{scale:1;}
+  
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    transition: 0.2s, transform;
+    color: #234;
+    image-rendering: pixelated;
+  }
+  
+  html, body{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+  }
+  
+  body{
+    overflow: hidden;
+  }
+
+  .display{
+    animation: popup 1s 1;
+    width:100%;
+    height:100%;
+    background-color: #6b9739;
+    background-image: url('../sprites/grass.gif');
+    background-size: 45px 48px;
+
+    .player,.person{
+      position: absolute;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items:center;
+      width:45px;
+      height:48px;
+      z-index: 1;
+      img{
+        width:45px;
+        height:48px;
+        background-size: 100%;
+      }
+    }
+
+    .player{
+      inset: 48px 0 0 45px;
+      z-index: 3;
+    }
+
+    .shadow{
+        &::before{
+            position: absolute;
+            display: block;
+            content: '';
+            background-color: #2346;
+            border-radius: 10px;
+            width: 45px;
+            height: 10px;
+            z-index: -1;
+            transform: translateY(25px);
+        }
+    }
+    .name_tag{
+        position: absolute;
+        font-style: italic;
+        transform: translateY(-35px);
+        font-family: monospace;
+        font-size: 18px;
+        &::before{
+          display: inline;
+          content: '@';
+        }
+    }
+  }

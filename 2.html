@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>presente</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./sprites/presente.png" type="image/x-icon">
+</head>
+<style>
+    @keyframes popup {
+        0%{left:100%}
+        50%{left:100%}
+        100%{left: 0;}
+    }
+
+    .display{
+        position: absolute;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        transition: 2s;
+    }
+
+    .display .person{
+        position: relative;
+        transition: 0.2s;
+    }
+
+    .letter{
+        position: absolute;
+        width: auto;
+        white-space: nowrap;
+        font-family: monospace;
+        font-size: 18px;
+        background-color: #fff8;
+        padding: 0;
+        transform: translateY(-70px);
+        transition: 0s;
+    }
+</style>
+<body>
+    <div class="display">
+        <div class="person shadow camila">
+            <span class="letter"></span>
+            <span class="name_tag">camila</span>
+            <img src="./sprites/idle.gif" alt="">
+        </div>
+        <div class="person shadow aquiles">
+            <span class="letter"></span>
+            <span class="name_tag">aquiles</span>
+            <img src="/sprites/aquiles.gif" alt="" style="transform: rotate3d(0,1,0,180deg);">
+        </div>
+    </div>
+</body>
+<script>
+    const display = document.querySelector('.display') 
+    const camila = document.querySelector('.camila')
+    const text_c = camila.children[0]
+    const aquiles = document.querySelector('.aquiles')
+    const text_a = aquiles.children[0]
+    var count = 0
+
+    let sequence = [()=>{
+        text_c.style.padding = "5px 8px"
+        text_c.innerHTML = 'Acuiles, tudo bem?'
+    },()=>{
+        text_c.style.padding = 0
+        text_c.innerHTML = ''
+        text_a.style.padding = "5px 8px"
+        text_a.innerHTML = 'Sim Camila'
+    },
+    ()=>{
+        text_a.style.padding = 0
+        text_a.innerHTML = ''
+        text_c.style.padding = "5px 8px"
+        text_c.innerHTML = 'visse Vinicius?'
+    },
+    ()=>{
+        text_c.style.padding = "0"
+        text_c.innerHTML = ''
+        text_a.style.padding = "5px 8px"
+        text_a.innerHTML = 'não, faz dias que eu não vejo ele'
+    },()=>{},
+    ()=>{
+        text_a.innerHTML = 'na verdade...'
+        display.style.filter = 'brightness(70%)'
+        aquiles.style.filter = 'brightness(1.6)'
+    },
+    ()=>{
+        text_a.innerHTML = 'parece que ele não sai de casa faz tempo'
+    },()=>{},
+    ()=>{
+        text_a.innerHTML = 'ele falou algo sobre'
+    },
+    ()=>{
+        text_a.innerHTML = 'presente ou monstro...'
+    },
+    ()=>{
+        text_a.style.padding = ''
+        text_a.innerHTML = ''
+        aquiles.style.filter = 'brightness(1)'
+    },
+    ()=>{
+        camila.children[2].style.transform = 'rotate3d(0,1,0,180deg)'
+        display.style.filter = 'brightness(50%)'
+        camila.style.filter = 'brightness(1.6)'
+    },
+    ()=>{
+        text_a.style.padding = "5px 8px"
+        text_a.innerHTML = '...'
+    },
+    ()=>{
+        text_a.style.padding = ""
+        text_a.innerHTML = ''
+        text_c.style.padding = "5px 8px"
+        text_c.innerHTML = 'será que ele está bem?'
+        camila.style.filter = 'brightness(1.7)'
+    },
+    ()=>{
+        text_c.innerHTML = ''
+        camila.children[2].style.transform = 'rotate3d(0,1,0,0deg)'
+        display.style.filter = 'brightness(1)'
+        camila.style.filter = 'brightness(1)'
+    },
+    ()=>{
+        text_c.innerHTML = 'vou salvar meu macho'
+    },
+    ()=>{
+        text_c.style.padding = ""
+        text_c.innerHTML = ''
+        aquiles.style.transform = 'translateY(-58px)'
+    },
+    ()=>{
+        camila.style.transition = '2s'
+        camila.style.transform = `translateX(80vw) rotate(25deg)`
+    },
+    ()=>{
+        display.style.backgroundImage = 'none'
+        display.style.transition = '4s'
+        display.style.background = '#000'
+    },
+    ()=>{
+        aquiles.style.transition = '1.5s'
+        aquiles.style.transform = 'translateY(0px) translateX(-50px)'
+    },
+    ()=>{
+        aquiles.style.transform = `translateX(80vw) rotate(25deg)`
+    },
+    ()=>{
+        window.location.href = '3.html'
+    }]
+
+
+    let interval = setInterval(()=>{
+        setTimeout(sequence[count],0)
+        count++
+    },2000)
+</script>
+</html>
